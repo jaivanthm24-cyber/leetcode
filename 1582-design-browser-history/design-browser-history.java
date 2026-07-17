@@ -4,7 +4,7 @@ class BrowserHistory {
     private int end;
     
     public BrowserHistory(String homepage) {
-        history = new String[101]; // start with reasonable capacity
+        history = new String[101];
         history[0] = homepage;
         current = 0;
         end = 0;
@@ -12,7 +12,6 @@ class BrowserHistory {
     
     public void visit(String url) {
         current++;
-        // If we exceed array size, double it
         if (current == history.length) {
             String[] newHistory = new String[history.length * 2];
             System.arraycopy(history, 0, newHistory, 0, history.length);
