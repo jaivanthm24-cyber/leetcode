@@ -9,50 +9,30 @@
  * }
  */
 class Solution {
-        public boolean isPalindrome(ListNode head) {
-            if (head == null || head.next == null) {
-                return true;
-            }
-
-            ListNode original = head;
-            ListNode reversed = reverseList(copyList(head));
-
-            while (original != null && reversed != null) {
-                if (original.val != reversed.val) {
-                    return false;
-                }
-                original = original.next;
-                reversed = reversed.next;
-            }
-
-            return original == null && reversed == null;
+    public boolean isPalindrome(ListNode head) {
+       ListNode fast =head;
+       ListNode slow=head;
+       while(fast!=null && fast.next!=null){
+        slow=slow.next;
+        fast=fast.next.next;
+       }
+       ListNode prev= null;
+       while(slow!=null){
+        ListNode temp = slow.next;
+        slow.next=prev;
+        prev=slow;
+        slow=temp;
+       }
+       ListNode first=head;
+       ListNode second =prev;
+       while(second!=null){
+        if(first.val!=second.val){
+            return false;
         }
+        first= first.next;
+        second= second.next;
 
-        private ListNode reverseList(ListNode head) {
-            ListNode prev = null;
-            ListNode current = head;
-
-            while (current != null) {
-                ListNode nextNode = current.next;
-                current.next = prev;
-                prev = current;
-                current = nextNode;
-            }
-
-            return prev;
-        }
-
-        private ListNode copyList(ListNode head) {
-            ListNode dummy = new ListNode();
-            ListNode tail = dummy;
-            ListNode current = head;
-
-            while (current != null) {
-                tail.next = new ListNode(current.val);
-                tail = tail.next;
-                current = current.next;
-            }
-
-            return dummy.next;
-        }
+       }
+       return true;
+    }
 }
