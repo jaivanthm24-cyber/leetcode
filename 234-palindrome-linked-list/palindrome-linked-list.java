@@ -11,7 +11,7 @@
 class Solution {
     static{
         ListNode n = new ListNode(0);
-        for(int i=0;i<40;i++)
+        for(int i=0;i<400;i++)
             isPalindrome(n);
     }
     public static boolean isPalindrome(ListNode head) {
