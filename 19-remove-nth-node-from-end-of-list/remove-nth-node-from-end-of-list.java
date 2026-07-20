@@ -2,8 +2,7 @@ class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
         if (head == null) {
             return null;
-        }
-        
+        }        
         int count = 0;
         ListNode current = head;
         while (current != null) {
