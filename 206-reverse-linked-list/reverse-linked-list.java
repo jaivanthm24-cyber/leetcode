@@ -8,22 +8,29 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
+import java.util.LinkedList;
+import java.util.Iterator;
+
 class Solution {
     public ListNode reverseList(ListNode head) {
+        LinkedList<Integer> list = new LinkedList<>();
 
-        ListNode prev = null;
         ListNode curr = head;
-
         while (curr != null) {
-
-            ListNode next = curr.next; // Save next node
-
-            curr.next = prev;          // Reverse link
-
-            prev = curr;               // Move prev
-            curr = next;               // Move curr
+            list.add(curr.val);
+            curr = curr.next;
         }
 
-        return prev;
+        Iterator<Integer> it = list.descendingIterator();
+
+        ListNode dummy = new ListNode(0);
+        ListNode tail = dummy;
+
+        while (it.hasNext()) {
+            tail.next = new ListNode(it.next());
+            tail = tail.next;
+        }
+
+        return dummy.next;
     }
 }
