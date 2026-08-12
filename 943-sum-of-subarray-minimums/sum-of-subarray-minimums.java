@@ -1,55 +1,24 @@
-import java.util.*;
-
 class Solution {
-
     public int sumSubarrayMins(int[] arr) {
-
         int n = arr.length;
-        long sum = 0;
-        int mod = 1000000007;
-
-        Stack<Integer> stack = new Stack<>();
-
-        int[] left = new int[n];
-        int[] right = new int[n];
-        for (int i = 0; i < n; i++) {
-            while (!stack.isEmpty() && arr[stack.peek()] > arr[i]) {
-                stack.pop();
-            }
-            if (stack.isEmpty()) {
-                left[i] = i + 1;
-            } else {
-                left[i] = i - stack.peek();
-            }
-            stack.push(i);
+        int mod = (int)1e9+7;
+        int[] right = new int[n + 1];
+        int[] left = new int[n + 1];
+        int[] sum = new int[n + 1];
+        for (int i = 0; i < n; ++i) {
+            right[i + 1] = arr[i];
         }
-
-        stack.clear();
-
-        for (int i = n - 1; i >= 0; i--) {
-
-            while (!stack.isEmpty() && arr[stack.peek()] >= arr[i]) {
-                stack.pop();
-            }
-
-            if (stack.isEmpty()) {
-                right[i] = n - i;
-            } else {
-                right[i] = stack.peek() - i;
-            }
-
-            stack.push(i);
+        int res = 0;
+        for (int i = 1; i <= n; i++) {
+            int curr = right[i];
+            int j = i - 1;
+            while (right[j] >= curr) {
+                j = left[j];
+            } 
+            left[i] = j;
+            sum[i] = sum[j] + curr * (i - j);
+            res = (res + sum[i]) % mod;
         }
-
-        // Calculate contribution
-        for (int i = 0; i < n; i++) {
-
-            long contribution =
-                    (long) arr[i] * left[i] * right[i];
-
-            sum = (sum + contribution) % mod;
-        }
-
-        return (int) sum;
+        return res;
     }
 }
